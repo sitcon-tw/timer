@@ -16,7 +16,7 @@ module.exports = React.createClass {
     }
 
   _Timeout: ->
-    console.log "Hello Timeout"
+    @setState { isPause: true }
 
   _TogglePause: ->
     @setState { isPause: !@state.isPause }
@@ -27,7 +27,7 @@ module.exports = React.createClass {
     (
       <div>
         <Clock minutes={1} onTimeout={@_Timeout} isPause={@state.isPause} />
-        <button onClick={@_TogglePause}>{if @state.isPause then "Unpause" else "Pause" }</button>
+        <button onClick={@_TogglePause}>{if @state.isPause then "Start" else "Pause" }</button>
       </div>
     )
 }
