@@ -25,7 +25,7 @@ module.exports = React.createClass {
 
   render: ->
     (
-      <div>
+      <div id="timer">
         <Clock onTimeout={@_Timeout} isPause={@state.isPause} />
         <div className="timer-control">
           <button className="control-button" onClick={@_TogglePause}>{if @state.isPause then "開始" else "暫停" }</button>
