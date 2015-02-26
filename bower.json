@@ -1,0 +1,17 @@
+{
+  "name": "Timer",
+  "version": "0.0.0",
+  "homepage": "https://github.com/sitcon-tw/Timer",
+  "authors": [
+    "蒼時弦也 <elct9620@frost.tw>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
