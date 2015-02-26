@@ -1,0 +1,27 @@
+// Clock
+
+.clock {
+}
+
+.clock-time {
+  display: inline-block;
+  width: 2em;
+
+  border: none;
+
+  color: $primaryColor;
+  background: transparent;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 5em;
+
+  text-align: center;
+
+  &:disabled {
+    color: $primaryColor;
+    background: transparent;
+  }
+
+  &.split {
+    width: 0.5em;
+  }
+}

@@ -17,7 +17,6 @@ Number.prototype.padLeft = (length, padString) ->
 
   @toString()
 
-
 module.exports = React.createClass {
   displayName: 'Clock'
   getInitialState: ->
@@ -107,9 +106,11 @@ module.exports = React.createClass {
 
     (
       <div className="clock">
-        <input type="number" value={hours} name="hours" disabled={!@props.isPause} onChange={@_onUpdateTime} />:
-        <input type="number" value={minutes} name="minutes" disabled={!@props.isPause} onChange={@_onUpdateTime} />:
-        <input type="number" value={seconds} name="seconds" disabled={!@props.isPause} onChange={@_onUpdateTime} />
+        <input className="clock-time" type="text" value={hours} name="hours" disabled={!@props.isPause} onChange={@_onUpdateTime} />
+        <span className="clock-time split">:</span>
+        <input className="clock-time" type="text" value={minutes} name="minutes" disabled={!@props.isPause} onChange={@_onUpdateTime} />
+        <span className="clock-time split">:</span>
+        <input className="clock-time" type="text" value={seconds} name="seconds" disabled={!@props.isPause} onChange={@_onUpdateTime} />
       </div>
     )
 }
