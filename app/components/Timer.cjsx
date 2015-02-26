@@ -12,7 +12,7 @@ module.exports = React.createClass {
   displayName: 'Timer'
   getInitialState: ->
     {
-      isPause: false
+      isPause: true
     }
 
   _Timeout: ->
@@ -26,8 +26,10 @@ module.exports = React.createClass {
   render: ->
     (
       <div>
-        <Clock minutes={1} onTimeout={@_Timeout} isPause={@state.isPause} />
-        <button onClick={@_TogglePause}>{if @state.isPause then "Start" else "Pause" }</button>
+        <Clock onTimeout={@_Timeout} isPause={@state.isPause} />
+        <div className="timer-control">
+          <button className="control-button" onClick={@_TogglePause}>{if @state.isPause then "開始" else "暫停" }</button>
+        </div>
       </div>
     )
 }
