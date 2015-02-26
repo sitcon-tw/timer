@@ -67,9 +67,9 @@ module.exports = React.createClass {
     [hours, minutes, seconds] = [@state.newHours, @state.newMinutes, @state.newSeconds]
 
     switch e.target.name
-      when "hours" then hours = Number(e.target.value)
-      when "minutes" then minutes = Number(e.target.value)
-      when "seconds" then seconds = Number(e.target.value)
+      when "hours" then hours = Number(e.target.value) || 0
+      when "minutes" then minutes = Number(e.target.value) || 0
+      when "seconds" then seconds = Number(e.target.value) || 0
 
     countDownSeconds = hours * 3600 + minutes * 60 + seconds
     [hours, minutes, seconds] = @_SecondsToHuman(countDownSeconds)
@@ -106,11 +106,11 @@ module.exports = React.createClass {
 
     (
       <div className="clock">
-        <input className="clock-time" type="text" value={hours} name="hours" disabled={!@props.isPause} onChange={@_onUpdateTime} />
+        <input tabIndex={1} className="clock-time" type="text" value={hours} name="hours" disabled={!@props.isPause} onChange={@_onUpdateTime} />
         <span className="clock-time split">:</span>
-        <input className="clock-time" type="text" value={minutes} name="minutes" disabled={!@props.isPause} onChange={@_onUpdateTime} />
+        <input tabIndex={2} className="clock-time" type="text" value={minutes} name="minutes" disabled={!@props.isPause} onChange={@_onUpdateTime} />
         <span className="clock-time split">:</span>
-        <input className="clock-time" type="text" value={seconds} name="seconds" disabled={!@props.isPause} onChange={@_onUpdateTime} />
+        <input tabIndex={3} className="clock-time" type="text" value={seconds} name="seconds" disabled={!@props.isPause} onChange={@_onUpdateTime} />
       </div>
     )
 }
