@@ -1,11 +1,4 @@
 .DS_Store
-javascripts/
-stylesheets/
-.sass-cache/
-.coffeescript-cache/
-fire_app_log.txt
-build_*/
-vendor/
 node_modules/
 npm-debug.log
 tmp/
