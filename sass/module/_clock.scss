@@ -1,6 +1,7 @@
 // Clock
 
 .clock {
+  text-align: 0;
 }
 
 .clock-time {
@@ -11,12 +12,12 @@
   margin-bottom: 14px;
 
   border: none;
-  border-bottom: 2px solid $primaryColor;
+  border-bottom: 2px solid $white;
 
-  color: $primaryColor;
+  color: $white;
   background: transparent;
   font-family: 'Orbitron', sans-serif;
-  font-size: 5em;
+  font-size: 7em;
 
   text-align: center;
 
