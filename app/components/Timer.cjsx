@@ -39,9 +39,14 @@ module.exports = React.createClass {
     @refs.clock.reset()
 
   _ModifyFontSize: (e)->
-    switch true
-      when key.isPressed("=") || key.isPressed("+") then @refs.clock.adjustFontSize(1)
-      when key.isPressed("_") || key.isPressed("-") then @refs.clock.adjustFontSize(-1)
+    if e instanceof KeyboardEvent
+      switch true
+        when key.isPressed("=") || key.isPressed("+") then @refs.clock.adjustFontSize(1)
+        when key.isPressed("_") || key.isPressed("-") then @refs.clock.adjustFontSize(-1)
+    else
+      switch e.target.name
+        when "inc-font" then @refs.clock.adjustFontSize(1)
+        when "dec-font" then @refs.clock.adjustFontSize(-1)
 
   _SetClockShow: (e) ->
     clockSetCount = 2
@@ -51,6 +56,10 @@ module.exports = React.createClass {
       when key.isPressed("3") then clockSetCount = 3
 
     @setState { clockSetCount: clockSetCount }
+
+  _IncClockSet: ->
+    newSetCount = (@state.clockSetCount) % 3
+    @setState { clockSetCount: newSetCount + 1 }
 
   componentDidMount: ->
     key('shift+c', @_ToggleController)
@@ -76,6 +85,9 @@ module.exports = React.createClass {
         <div style={@_ControllerStyle()} className="timer-control with-transition ease-out and-fast">
           <button className="control-button" onClick={@_TogglePause}>{if @state.isPause then "開始" else "暫停" }</button>
           <button className="control-button" onClick={@_Reset}>重設</button>
+          <button className="control-button" onClick={@_IncClockSet}>顯示 {@state.clockSetCount} 位</button>
+          <button className="control-button" name="inc-font" onClick={@_ModifyFontSize}>放大</button>
+          <button className="control-button" name="dec-font" onClick={@_ModifyFontSize}>縮小</button>
         </div>
       </div>
     )

@@ -97,6 +97,7 @@ module.exports = React.createClass {
       @setState { fontSize: newSize }
 
   getClockSet: ->
+    clockSetCount = if @props.isPause then 3 else @props.clockSetCount
     clockSet = []
     times = []
     names = ["hours", "minutes", "seconds"]
@@ -107,17 +108,17 @@ module.exports = React.createClass {
       times = @_Humanize()
 
     for time, key in times
-      if Number(time) <= 0 and (3-key) > @props.clockSetCount
+      if Number(time) <= 0 and (3-key) > clockSetCount
         offset++
 
-    for index in [1..@props.clockSetCount]
+    for index in [1..clockSetCount]
       clockOffsetIndex = index + offset - 1
       time = times[clockOffsetIndex]
       name = names[clockOffsetIndex]
       clockSet.push(
         <input key={index} tabIndex={index} style={@getStyle()} className="clock-time" type="text" value={time} name={name} disabled={!@props.isPause} onChange={@_onUpdateTime} />
       )
-      if index < @props.clockSetCount
+      if index < clockSetCount
         clockSet.push(
           <span key={index+100} className="clock-time split" style={@getStyle()}>:</span>
         )
