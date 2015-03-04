@@ -81,6 +81,9 @@ module.exports = React.createClass {
       newSeconds: seconds
     }
 
+  reset: ->
+    @setState @getInitialState()
+
   componentWillMount: ->
     countDownSeconds = @props.hours * 3600 + @props.minutes * 60 + @props.seconds
     @setState {
@@ -91,9 +94,9 @@ module.exports = React.createClass {
     @timer = setTimeout(@_Tick, 1000)
 
   componentWillReceiveProps: (nextProps) ->
-    if !nextProps.isPause
-      setTimeout(@_Tick, 1000)
     clearTimeout(@timer)
+    if !nextProps.isPause
+      @timer = setTimeout(@_Tick, 1000)
 
   componentWillUnmont: ->
     clearTimeout(@timer)

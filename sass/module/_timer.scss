@@ -5,14 +5,28 @@
 }
 
 .timer-control {
-  .control-button {
-    border: 1px solid $primaryColor;
+  padding: 2em;
 
-    color: $primaryColor;
-    background: transparent;
+  background: $primaryColor;;
+  text-align: center;
+
+  .control-button {
+    padding: 0.35em 0.65em;
+    margin: 0 0.5em;
+    border: 1px solid $white;
+
+    color: $white;
+    background: $primaryColor;
 
     font-size: 18px;
 
+    border-radius: 5px;
+
     &:focus { outline: none; }
+    &:hover {
+      border-color: $primaryColor;
+      color: $primaryColor;
+      background: $white;
+    }
   }
 }

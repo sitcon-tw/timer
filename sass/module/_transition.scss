@@ -1,0 +1,25 @@
+// Transiton
+
+.with-transition {
+  transition: 250ms ease-in;
+
+  &.ease-in {
+    transition-timing-function: ease-in;
+  }
+
+  &.ease-out {
+    transition-timing-function: ease-out;
+  }
+
+  &.ease-in-out {
+    transition-timing-function: ease-in-out;
+  }
+
+  &.and-fast {
+    transition-duration: 100ms;
+  }
+
+  &.and-slow {
+    transition-duration: 500ms;
+  }
+}
