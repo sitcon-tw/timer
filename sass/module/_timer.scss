@@ -4,6 +4,27 @@
 
 }
 
+.timer-hint {
+  display: inline-block;
+  width: 100%;
+
+  text-align: center;
+
+  margin-top: 14px;
+  margin-bottom: 14px;
+
+  border: none;
+  border-bottom: 2px solid $white;
+
+  color: $white;
+  background: transparent;
+  font-family: 'Orbitron', sans-serif;
+
+  &:focus {
+    outline: none;
+  }
+}
+
 .timer-control {
   padding: 2em;
 

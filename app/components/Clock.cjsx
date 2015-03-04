@@ -25,7 +25,6 @@ module.exports = React.createClass {
       newHours: 0
       newMinutes: 0
       newSeconds: 0
-      fontSize: 7
     }
 
   getDefaultProps: ->
@@ -35,6 +34,7 @@ module.exports = React.createClass {
       seconds: 0
       isPause: false
       clockSetCount: 2
+      fontSize: 7
     }
 
   _Tick: ->
@@ -85,16 +85,11 @@ module.exports = React.createClass {
 
   getStyle: ->
     {
-      fontSize: "#{@state.fontSize}em"
+      fontSize: "#{@props.fontSize}em"
     }
 
   reset: ->
     @setState @getInitialState()
-
-  adjustFontSize: (adjustSize) ->
-    newSize = @state.fontSize + adjustSize
-    if newSize > 1
-      @setState { fontSize: newSize }
 
   getClockSet: ->
     clockSetCount = if @props.isPause then 3 else @props.clockSetCount
@@ -148,7 +143,7 @@ module.exports = React.createClass {
 
   render: ->
     (
-      <div className="clock">
+      <div className="clock" style={@props.style}>
         {@getClockSet()}
       </div>
     )
