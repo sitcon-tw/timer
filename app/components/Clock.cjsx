@@ -143,7 +143,7 @@ module.exports = React.createClass {
 
   render: ->
     (
-      <div className="clock" style={@props.style}>
+      <div className="clock with-transition" style={@props.style}>
         {@getClockSet()}
       </div>
     )

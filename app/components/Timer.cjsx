@@ -102,7 +102,7 @@ module.exports = React.createClass {
     (
       <div>
         <div id="timer">
-          <Clock onTimeout={@_Timeout} clockSetCount={@state.clockSetCount} isPause={@state.isPause} fontSize={@state.fontSize} ref="clock" style={clockStyle} />
+          <Clock onTimeout={@_Timeout} clockSetCount={@state.clockSetCount} isPause={@state.isPause} fontSize={@state.fontSize} ref="clock" />
           <input ref="hint" className="timer-hint" style={hintStyle} onKeyDown={@_HandleHintKey} />
         </div>
         <div style={@_ControllerStyle()} className="timer-control with-transition ease-out and-fast">
