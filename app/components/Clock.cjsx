@@ -25,6 +25,7 @@ module.exports = React.createClass {
       newHours: 0
       newMinutes: 0
       newSeconds: 0
+      fontSize: 7
     }
 
   getDefaultProps: ->
@@ -33,6 +34,7 @@ module.exports = React.createClass {
       minutes: 0
       seconds: 0
       isPause: false
+      clockSetCount: 2
     }
 
   _Tick: ->
@@ -81,8 +83,47 @@ module.exports = React.createClass {
       newSeconds: seconds
     }
 
+  getStyle: ->
+    {
+      fontSize: "#{@state.fontSize}em"
+    }
+
   reset: ->
     @setState @getInitialState()
+
+  adjustFontSize: (adjustSize) ->
+    newSize = @state.fontSize + adjustSize
+    if newSize > 1
+      @setState { fontSize: newSize }
+
+  getClockSet: ->
+    clockSet = []
+    times = []
+    names = ["hours", "minutes", "seconds"]
+    offset = 0
+    if @props.isPause
+      times = [@state.newHours.padLeft(2), @state.newMinutes.padLeft(2), @state.newSeconds.padLeft(2)]
+    else
+      times = @_Humanize()
+
+    for time, key in times
+      if Number(time) <= 0 and (3-key) > @props.clockSetCount
+        offset++
+
+    for index in [1..@props.clockSetCount]
+      clockOffsetIndex = index + offset - 1
+      time = times[clockOffsetIndex]
+      name = names[clockOffsetIndex]
+      clockSet.push(
+        <input key={index} tabIndex={index} style={@getStyle()} className="clock-time" type="text" value={time} name={name} disabled={!@props.isPause} onChange={@_onUpdateTime} />
+      )
+      if index < @props.clockSetCount
+        clockSet.push(
+          <span key={index+100} className="clock-time split" style={@getStyle()}>:</span>
+        )
+
+    clockSet
+
 
   componentWillMount: ->
     countDownSeconds = @props.hours * 3600 + @props.minutes * 60 + @props.seconds
@@ -98,22 +139,16 @@ module.exports = React.createClass {
     if !nextProps.isPause
       @timer = setTimeout(@_Tick, 1000)
 
+    if nextProps.clockSetCount > 3 || nextProps.clockSetCount < 1
+      nextProps.clockSetCount = 2
+
   componentWillUnmont: ->
     clearTimeout(@timer)
 
   render: ->
-    if @props.isPause
-      [hours, minutes, seconds] = [@state.newHours.padLeft(2), @state.newMinutes.padLeft(2), @state.newSeconds.padLeft(2)]
-    else
-      [hours, minutes, seconds] = @_Humanize()
-
     (
       <div className="clock">
-        <input tabIndex={1} className="clock-time" type="text" value={hours} name="hours" disabled={!@props.isPause} onChange={@_onUpdateTime} />
-        <span className="clock-time split">:</span>
-        <input tabIndex={2} className="clock-time" type="text" value={minutes} name="minutes" disabled={!@props.isPause} onChange={@_onUpdateTime} />
-        <span className="clock-time split">:</span>
-        <input tabIndex={3} className="clock-time" type="text" value={seconds} name="seconds" disabled={!@props.isPause} onChange={@_onUpdateTime} />
+        {@getClockSet()}
       </div>
     )
 }

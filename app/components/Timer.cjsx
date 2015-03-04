@@ -14,6 +14,7 @@ module.exports = React.createClass {
     {
       isPause: true
       isControlOpen: false
+      clockSetCount: 2
     }
 
   _Timeout: ->
@@ -37,18 +38,40 @@ module.exports = React.createClass {
   _Reset: ->
     @refs.clock.reset()
 
+  _ModifyFontSize: (e)->
+    switch true
+      when key.isPressed("=") || key.isPressed("+") then @refs.clock.adjustFontSize(1)
+      when key.isPressed("_") || key.isPressed("-") then @refs.clock.adjustFontSize(-1)
+
+  _SetClockShow: (e) ->
+    clockSetCount = 2
+    switch true
+      when key.isPressed("1") then clockSetCount = 1
+      when key.isPressed("2") then clockSetCount = 2
+      when key.isPressed("3") then clockSetCount = 3
+
+    @setState { clockSetCount: clockSetCount }
+
   componentDidMount: ->
     key('shift+c', @_ToggleController)
+    key('shift+-, shift+=', @_ModifyFontSize)
+    key('space, shift+P', @_TogglePause)
+    key('shift+R', @_Reset)
+    key('shift+1, shift+2, shift+3', @_SetClockShow)
 
   componentWillUnMount: ->
     key.unbind('shift+c')
+    key.unbind('shift+-, shift+=')
+    key.unbind('space, shift+P')
+    key.unbind('shift+R')
+    key.unbind('shift+1, shift+2, shift+3')
 
   render: ->
     [hours, minutes, seconds] = [@state.hours, @state.minutes, @state.seconds]
     (
       <div>
         <div id="timer">
-          <Clock onTimeout={@_Timeout} isPause={@state.isPause} ref="clock" />
+          <Clock onTimeout={@_Timeout} clockSetCount={@state.clockSetCount} isPause={@state.isPause} ref="clock" />
         </div>
         <div style={@_ControllerStyle()} className="timer-control with-transition ease-out and-fast">
           <button className="control-button" onClick={@_TogglePause}>{if @state.isPause then "開始" else "暫停" }</button>
