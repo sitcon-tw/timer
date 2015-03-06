@@ -79,6 +79,19 @@ module.exports = React.createClass {
     if e.key == "Enter"
       @_ToggleHintMode()
 
+  _SetTime: (e) ->
+    time = 0
+    @refs.clock.reset()
+    if e instanceof KeyboardEvent
+
+    else
+      time = Number(e.target.name.replace("min", "")) || 0
+      @setState {
+        isPause: true
+      }
+
+    @refs.clock.setTime(0, time, 0)
+
   componentDidMount: ->
     key('shift+c', @_ToggleController)
     key('shift+-, shift+=', @_ModifyFontSize)
@@ -111,6 +124,8 @@ module.exports = React.createClass {
           <button className="control-button" onClick={@_IncClockSet}>顯示 {@state.clockSetCount} 位</button>
           <button className="control-button" name="inc-font" onClick={@_ModifyFontSize}>放大</button>
           <button className="control-button" name="dec-font" onClick={@_ModifyFontSize}>縮小</button>
+          <button className="control-button" name="10min" onClick={@_SetTime}>10 分鐘</button>
+          <button className="control-button" name="40min" onClick={@_SetTime}>40 分鐘</button>
         </div>
       </div>
     )

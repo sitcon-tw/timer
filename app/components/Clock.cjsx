@@ -88,6 +88,15 @@ module.exports = React.createClass {
       fontSize: "#{@props.fontSize}em"
     }
 
+  setTime: (hours, minutes, seconds) ->
+    remainTime = hours * 3600 + minutes * 60 + seconds
+    @setState {
+      remainTime: remainTime
+      newHours: hours
+      newMinutes: minutes
+      newSeconds: seconds
+    }
+
   reset: ->
     @setState @getInitialState()
 
@@ -119,7 +128,6 @@ module.exports = React.createClass {
         )
 
     clockSet
-
 
   componentWillMount: ->
     countDownSeconds = @props.hours * 3600 + @props.minutes * 60 + @props.seconds
